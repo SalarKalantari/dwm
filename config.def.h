@@ -44,7 +44,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -59,20 +59,51 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
+#include <X11/XF86keysym.h>
+// for pulse compatible //
+static const char *upvol[] = { "amixer", "-q", "sset", "Master", "5%+", NULL  };
+static const char *downvol[] = { "amixer", "-q", "sset", "Master", "5%-", NULL  };
+static const char *mute[] = { "amixer", "-q", "-D", "pulse", "sset", "Master", "toggle", NULL  };
+static const char *pkillvol[] = { "pkill", "-RTMIN+10", "dwmblocks", NULL  };
+static const char *uplight[] = { "xbacklight", "-inc", "1", NULL  };
+static const char *downlight[] = { "xbacklight", "-dec", "1", NULL  };
+static const char *pkilllight[] = { "pkill", "-RTMIN+11", "dwmblocks", NULL  };
+static const char *touchpad[] = { "/usr/local/bin/toggletouchpad.sh", NULL  };
+static const char *print[] = { "gnome-screenshot", "-i", NULL  };
+static const char *suspend[] = { "sudo", "s2ram", NULL  };
+static const char *saver[] = { "xset", "dpms", "force", "off", NULL  };
+static const char *play[] = { "cmus-remote", "--pause", NULL  };
+static const char *stop[] = { "cmus-remote", "--perv", NULL,  };
+static const char *next[] = { "cmus-remote", "--next", NULL,  };
+static const char *prev[] = { "cmus-remote", "--seek", "-5", NULL  };
+static const char *playctl[] = { "playerctl", "--player=spotify", "play-pause", NULL  };
+static const char *stopctl[] = { "playerctl", "--player=spotify", "stop", NULL  };
+static const char *nextctl[] = { "playerctl", "--player=spotify", "next", NULL  };
+static const char *prevctl[] = { "playerctl", "--player=spotify", "previous", NULL  };
+static const char *upkbd[] = { "/home/salar/local/bin/kb-light.py", "+", "1", NULL  };
+static const char *downkbd[] = { "/home/salar/local/bin/kb-light.py", "-", "1", NULL  };
+static const char *wifi[] = { "sudo", "etc/init.d/net.wlp3s0", "start", NULL  };
+static const char *red3000[] = { "redshift", "-P", "-O", "3000", NULL  };
+static const char *red4000[] = { "redshift", "-P", "-O", "4000", NULL  };
+static const char *red6000[] = { "redshift", "-P", "-O", "6000", NULL  };
+static const char *tlp[] = { "sudo", "tlp", "start", NULL  };
+
+
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,             		XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_p,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -84,6 +115,35 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ 0,		XF86XK_WLAN,			spawn,		{.v = wifi } },
+	{ 0,		XF86XK_TouchpadToggle,		spawn,		{.v = touchpad } },
+	{ 0,		XF86XK_AudioPlay,		spawn,		{.v = play } },
+	{ 0,		XF86XK_AudioPlay,		spawn,		{.v = playctl } },
+	{ 0,		XF86XK_AudioStop,		spawn,		{.v = stop } },
+	{ 0,		XF86XK_AudioStop,		spawn,		{.v = stopctl } },
+	{ 0,		XF86XK_AudioNext,		spawn,		{.v = next } },
+	{ 0,		XF86XK_AudioNext,		spawn,		{.v = nextctl } },
+	{ 0,		XF86XK_AudioPrev,		spawn,		{.v = prev } },
+	{ 0,		XF86XK_AudioPrev,		spawn,		{.v = prevctl } },
+	{ 0,		XF86XK_KbdBrightnessUp,		spawn,		{.v = upkbd } },
+	{ 0,		XF86XK_KbdBrightnessDown,	spawn,		{.v = downkbd } },
+	{ MODKEY,			XK_z,		spawn,		{.v = red3000 } },
+	{ MODKEY,			XK_x,		spawn,		{.v = red4000 } },
+	{ MODKEY,			XK_c,		spawn,		{.v = red6000 } },
+	{ MODKEY,			XK_v,		spawn,		{.v = tlp } },
+	{ 0,		XF86XK_AudioRaiseVolume,	spawn,		{.v = upvol } },
+	{ 0,		XF86XK_AudioRaiseVolume,	spawn,		{.v = pkillvol } },
+	{ 0,		XF86XK_AudioLowerVolume,	spawn,		{.v = downvol } },
+	{ 0,		XF86XK_AudioLowerVolume,	spawn,		{.v = pkillvol } },
+	{ 0,		XF86XK_AudioMute,		spawn,		{.v = mute } },
+	{ 0,		XF86XK_AudioMute,		spawn,		{.v = pkillvol } },
+	{ 0,		XF86XK_MonBrightnessUp,		spawn,		{.v = uplight } },
+	{ 0,		XF86XK_MonBrightnessUp,		spawn,		{.v = pkilllight } },
+	{ 0,		XF86XK_MonBrightnessDown,	spawn,		{.v = downlight } },
+	{ 0,		XF86XK_MonBrightnessDown,	spawn,		{.v = pkilllight } },
+	{ 0,		XK_Print,			spawn,		{.v = print } },
+	{ 0,		XF86XK_Sleep,			spawn,		{.v = suspend } },
+	{ 0,		XF86XK_ScreenSaver,		spawn,		{.v = saver } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -93,7 +153,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
 };
 
 /* button definitions */
