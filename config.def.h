@@ -57,7 +57,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 
 #include <X11/XF86keysym.h>
 // for pulse compatible //
@@ -82,10 +82,10 @@ static const char *nextctl[] = { "playerctl", "--player=spotify", "next", NULL  
 static const char *prevctl[] = { "playerctl", "--player=spotify", "previous", NULL  };
 static const char *upkbd[] = { "/home/salar/.local/bin/kb-light.py", "+", "1", NULL  };
 static const char *downkbd[] = { "/home/salar/.local/bin/kb-light.py", "-", "1", NULL  };
-static const char *wifi[] = { "sudo", "etc/init.d/net.wlp3s0", "start", NULL  };
+static const char *wifi[] = { "sudo", "/etc/init.d/net.wlp3s0", "start", NULL  };
 static const char *red3000[] = { "redshift", "-P", "-O", "3000", NULL  };
 static const char *red4000[] = { "redshift", "-P", "-O", "4000", NULL  };
-static const char *red6000[] = { "redshift", "-P", "-O", "6000", NULL  };
+static const char *red6000[] = { "redshift", "-P", "-O", "6500", NULL  };
 static const char *tlp[] = { "sudo", "tlp", "start", NULL  };
 
 
