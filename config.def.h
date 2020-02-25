@@ -70,7 +70,7 @@ static const char *downlight[] = { "xbacklight", "-dec", "1", NULL  };
 static const char *pkilllight[] = { "pkill", "-RTMIN+11", "dwmblocks", NULL  };
 static const char *touchpad[] = { "/home/salar/.local/bin/toggletouchpad.sh", NULL  };
 static const char *print[] = { "gnome-screenshot", "-i", NULL  };
-static const char *suspend[] = { "sudo", "s2ram", NULL  };
+static const char *suspend[] = { "doas", "s2ram", NULL  };
 static const char *saver[] = { "xset", "dpms", "force", "off", NULL  };
 static const char *play[] = { "cmus-remote", "--pause", NULL  };
 static const char *stop[] = { "cmus-remote", "--prev", NULL,  };
@@ -82,11 +82,11 @@ static const char *nextctl[] = { "playerctl", "--player=spotify", "next", NULL  
 static const char *prevctl[] = { "playerctl", "--player=spotify", "previous", NULL  };
 static const char *upkbd[] = { "/home/salar/.local/bin/kb-light.py", "+", "1", NULL  };
 static const char *downkbd[] = { "/home/salar/.local/bin/kb-light.py", "-", "1", NULL  };
-static const char *wifi[] = { "sudo", "/etc/init.d/net.wlp3s0", "start", NULL  };
+static const char *wifi[] = { "doas", "/etc/init.d/net.wlp3s0", "start", NULL  };
 static const char *red3000[] = { "redshift", "-P", "-O", "3000", NULL  };
 static const char *red4000[] = { "redshift", "-P", "-O", "4000", NULL  };
 static const char *red6000[] = { "redshift", "-P", "-O", "6500", NULL  };
-static const char *tlp[] = { "sudo", "tlp", "start", NULL  };
+static const char *tlp[] = { "doas", "tlp", "start", NULL  };
 
 
 
