@@ -83,9 +83,9 @@ static const char *prevctl[] = { "playerctl", "--player=spotify", "previous", NU
 static const char *upkbd[] = { "/home/salar/.local/bin/kb-light.py", "+", "1", NULL  };
 static const char *downkbd[] = { "/home/salar/.local/bin/kb-light.py", "-", "1", NULL  };
 static const char *wifi[] = { "doas", "/etc/init.d/net.wlp3s0", "start", NULL  };
-static const char *red3000[] = { "redshift", "-P", "-O", "3000", NULL  };
-static const char *red4000[] = { "redshift", "-P", "-O", "4000", NULL  };
-static const char *red6000[] = { "redshift", "-P", "-O", "6500", NULL  };
+static const char *red3000[] = { "redshift", "-m", "randr", "-P", "-O", "3000", NULL  };
+static const char *red4000[] = { "redshift", "-m", "randr", "-P", "-O", "4000", NULL  };
+static const char *red6000[] = { "redshift", "-m", "randr", "-P", "-O", "6500", NULL  };
 static const char *tlp[] = { "doas", "tlp", "start", NULL  };
 
 
