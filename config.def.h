@@ -61,9 +61,9 @@ static const char *termcmd[]  = { "st", NULL };
 
 #include <X11/XF86keysym.h>
 // for pulse compatible //
-static const char *upvol[] = { "amixer", "-q", "sset", "Master", "5%+", NULL  };
-static const char *downvol[] = { "amixer", "-q", "sset", "Master", "5%-", NULL  };
-static const char *mute[] = { "amixer", "-q", "-D", "pulse", "sset", "Master", "toggle", NULL  };
+static const char *upvol[] = { "amixer", "-q", "sset", "-c", "1", "Master", "5%+", NULL  };
+static const char *downvol[] = { "amixer", "-q", "sset", "-c", "1", "Master", "5%-", NULL  };
+static const char *mute[] = { "amixer", "-q", "sset", "-c", "1", "Master", "toggle", NULL  };
 static const char *pkillvol[] = { "pkill", "-RTMIN+10", "dwmblocks", NULL  };
 static const char *uplight[] = { "xbacklight", "-inc", "1", NULL  };
 static const char *downlight[] = { "xbacklight", "-dec", "1", NULL  };
